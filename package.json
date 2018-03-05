@@ -36,6 +36,7 @@
     "gatsby-transformer-remark": "^1.7.34",
     "geopattern": "^1.2.3",
     "lodash": "^4.17.5",
+    "palx": "1.0.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
