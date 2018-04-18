@@ -1,31 +1,21 @@
 import React, { Component, Fragment } from 'react'
 import { Text } from '@hackclub/design-system'
 import Post from 'components/challenge/Post'
-import axios from 'axios'
-import storage from 'storage'
+import api from 'api'
 import { map, includes, isEmpty, remove, filter, isEqual, get } from 'lodash'
 
 class Posts extends Component {
-  state = { posts: [], upvotes: [], userId: null, userEmail: null }
+  state = { posts: [], upvotes: [], status: 'loading' }
 
   componentDidMount() {
-    const userId = storage.get('userId')
-    const userEmail = storage.get('userEmail')
-    const authToken = storage.get('authToken')
-    this.setState({ userId, userEmail })
-    this.api = axios.create({
-      baseURL: 'https://api.hackclub.com/',
-      headers: { Authorization: `Bearer ${authToken}` }
-    })
-
     this.refreshPosts()
   }
 
   refreshPosts() {
-    const userId = storage.get('userId')
+    const { userId, challengeId } = this.props
 
-    this.api.get(`v1/challenges/${this.props.challengeId}/posts`).then(res => {
-      let posts = res.data || []
+    api.get(`v1/challenges/${this.props.challengeId}/posts`).then(data => {
+      let posts = data || []
 
       // array of post ids that user has upvoted
       const upvotes = []
@@ -37,8 +27,6 @@ class Posts extends Component {
           }
         })
       })
-
-      console.log(upvotes)
 
       // sort by upvote count
       posts = posts.sort((p1, p2) => {
@@ -56,7 +44,6 @@ class Posts extends Component {
     let { upvotes, posts } = this.state
     let post = posts.find(post => post.id == postId)
     let postIndex = posts.indexOf(post)
-    console.log(this.api)
     if (includes(this.state.upvotes, postId)) {
       // if this is nil, this means we've ran into a race where this.state.posts
       // hasn't finished updating (probably from a this.refreshPosts call) -
@@ -101,7 +88,7 @@ class Posts extends Component {
   }
 
   render() {
-    const { posts, upvotes, userEmail } = this.state
+    const { posts, upvotes } = this.state
     return (
       <Fragment>
         {isEmpty(posts) && (
@@ -115,7 +102,7 @@ class Posts extends Component {
             url={post.url}
             description={post.description}
             createdAt={post.created_at}
-            mine={isEqual(get(post, 'user.email'), userEmail)}
+            mine={isEqual(get(post, 'user.id'), this.props.userId)}
             upvotes={post.upvotesCount}
             upvoted={includes(upvotes, post.id)}
             onUpvote={e => this.onUpvote(e, post.id)}

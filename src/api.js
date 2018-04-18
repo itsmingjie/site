@@ -57,4 +57,12 @@ methods.forEach(method => {
   api[method.toLowerCase()] = generateMethod(method)
 })
 
+api.getCurrentUser = () => {
+  if (storage.get('authToken')) {
+    return api.get(`v1/users/current`)
+  } else {
+    return new Promise.reject(new Error('no current user'))
+  }
+}
+
 export default api
