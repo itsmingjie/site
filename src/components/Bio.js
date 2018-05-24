@@ -10,14 +10,27 @@ import {
 } from '@hackclub/design-system'
 
 const Base = Card.withComponent(Flex).extend`
-  border-radius: ${props => props.theme.radii[2]};
+  border-radius: ${({ theme }) => theme.radii[2]};
   max-width: 36rem;
   img {
     flex-shrink: 0;
   }
 `
 
-const Bio = ({ bg, img, name, role, text, ...props }) => (
+const Bio = ({
+  bg,
+  img,
+  name,
+  role,
+  text,
+  ...props
+}: {
+  bg: string,
+  img: string,
+  name: string,
+  role?: string,
+  text?: string
+}) => (
   <Base p={3} bg={`${bg}.0`} {...props}>
     <Avatar size="64px" src={img} mr={2} alt={name} />
     <Box>
