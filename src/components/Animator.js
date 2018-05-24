@@ -2,11 +2,7 @@ import React, { Component, Fragment } from 'react'
 import animator from 'animator'
 import { merge } from 'lodash'
 
-class Animator extends React.Component {
-  constructor() {
-    super()
-  }
-
+class Animator extends Component {
   componentDidMount() {
     animator()
   }

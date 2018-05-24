@@ -35,7 +35,15 @@ const Container = Box.extend`
   margin-bottom: ${({ theme }) => theme.space[3]}px;
 `
 
-class Comments extends Component {
+type Props = {
+  status: 'loading' | 'error' | 'success',
+  name: string,
+  url: string,
+  id: string,
+  email: string
+}
+type State = { data: Array, parent?: Object }
+class Comments extends Component<Props, State> {
   state = { data: [], parent: null }
 
   static getDerivedStateFromProps = (nextProps, prevState) => ({
@@ -73,8 +81,8 @@ class Comments extends Component {
   }
 
   render() {
-    const { status, name, url, id, email } = this.props
-    const { data, parent } = this.state
+    const { status, name, url, id, email }: Props = this.props
+    const { data, parent }: State = this.state
     return (
       <Fragment>
         <Header pb={1}>

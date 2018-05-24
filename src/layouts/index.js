@@ -1,16 +1,30 @@
-import React from 'react'
+import * as React from 'react'
 import Helmet from 'react-helmet'
 import data from 'data.json'
 import { ThemeProvider, colors } from '@hackclub/design-system'
 
-const { name, title, description, img, url, org } = data
+const {
+  name,
+  title,
+  description,
+  img,
+  url,
+  org
+}: {
+  name: string,
+  title: string,
+  description: string,
+  img: string,
+  url: string,
+  org: Object
+} = data
 
-const meta = tags =>
-  tags.map((props, index) =>
-    React.createElement('meta', { ...props, key: index })
+const meta = (tags: Array<Object>): Array<React.Node> =>
+  tags.map((props: { name?: string, property?: string, content: string }) =>
+    React.createElement('meta', { ...props, key: props.name || props.property })
   )
 
-export default props => (
+export default (props: any) => (
   <ThemeProvider webfonts>
     <Helmet defaultTitle={title}>
       <html lang="en" />

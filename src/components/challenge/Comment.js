@@ -140,9 +140,20 @@ const DeleteButton = props => (
   />
 )
 
+type Props = {
+  id: number,
+  following: boolean,
+  mine: boolean,
+  user: Object,
+  parent: Object,
+  body: string,
+  createdAt: string,
+  onReply: Function,
+  onDelete: Function
+}
 // NOTE(@lachlanjc): this would be nicer as stateless, but react-flip-move needs
 // refs, so it has to be a class.
-class Comment extends Component {
+class Comment extends Component<Props> {
   render() {
     const {
       id,
@@ -155,7 +166,7 @@ class Comment extends Component {
       onReply,
       onDelete,
       ...props
-    } = this.props
+    }: Props = this.props
     const emoji = onlyContainsEmoji(body)
     return (
       <Root
@@ -205,15 +216,3 @@ class Comment extends Component {
 }
 
 export default Comment
-
-Comment.propTypes = {
-  id: PropTypes.number.isRequired,
-  following: PropTypes.bool.isRequired,
-  mine: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
-  parent: PropTypes.object,
-  body: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  onReply: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
-}

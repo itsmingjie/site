@@ -27,25 +27,25 @@ const amounts = [5, 10, 25, 50, 100, 200, 250]
 const AmountsGrid = Box.extend`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: ${props => props.theme.space[3]}px;
+  grid-gap: ${({ theme }) => theme.space[3]}px;
   input[type='radio'] {
     display: none;
     &:checked + label {
-      background-color: ${props => props.theme.colors.blue[7]} !important;
+      background-color: ${({ theme }) => theme.colors.blue[7]} !important;
     }
   }
   input[type='number'] {
     text-align: center;
-    border-radius: ${props => props.theme.pill};
+    border-radius: ${({ theme }) => theme.pill};
     grid-column: 2 / span 2;
   }
 `
 
 const Amount = Button.withComponent('label').extend`
-  border-radius: ${props => props.theme.pill};
+  border-radius: ${({ theme }) => theme.pill};
 `
 
-const Option = ({ amount, ...props }) => [
+const Option = ({ amount, ...props }: { amount: number }) => [
   <input
     type="radio"
     id={`amount[${amount}]`}
@@ -59,7 +59,13 @@ const Option = ({ amount, ...props }) => [
   </Amount>
 ]
 
-class DonateForm extends Component {
+type State = {
+  loading: boolean,
+  stripeLoading: boolean,
+  amount: number,
+  recurring: number
+}
+class DonateForm extends Component<{}, State> {
   state = {
     loading: true,
     stripeLoading: true,
@@ -170,7 +176,7 @@ class DonateForm extends Component {
     })
   }
 
-  onStripeUpdate = e => {
+  onStripeUpdate = (e: void) => {
     this.stripeHandler.open({
       name: 'Hack Club',
       description: this.state.recurring
@@ -231,12 +237,9 @@ class DonateForm extends Component {
         return this.state.recurring ? `${msg} a month` : msg
     }
   }
-
   setAmount = amount => v => {
     this.setState({ amount, custom: false })
   }
-
   amountInCents = () => this.state.amount * 100
 }
-
 export default DonateForm
