@@ -11,6 +11,7 @@
     "start": "yarn run dev",
     "fmt": "prettier \"{src/**,}/*.js\" --single-quote --no-semi --write",
     "flow": "flow",
+    "flow-typed": "flow-typed",
     "social": "repng src/components/Social.js -w 512 -h 512 -o public -f social",
     "map": "npx babel-node src/map.js"
   },
@@ -67,6 +68,8 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "flow-bin": "^0.72.0",
+    "flow-typed": "^2.4.0",
     "minimist": "^1.2.0",
     "prettier": "^1.12.1",
     "svgo": "^1.0.5"
