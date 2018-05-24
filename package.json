@@ -10,6 +10,7 @@
     "dev": "gatsby develop",
     "start": "yarn run dev",
     "fmt": "prettier \"{src/**,}/*.js\" --single-quote --no-semi --write",
+    "flow": "flow",
     "social": "repng src/components/Social.js -w 512 -h 512 -o public -f social",
     "map": "npx babel-node src/map.js"
   },
