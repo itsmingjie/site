@@ -12,7 +12,7 @@ const Flag = A.withComponent(Link).extend.attrs({
   width: 8rem;
   height: 3rem;
   z-index: 0;
-  ${props => props.theme.mediaQueries.md} {
+  ${({ theme }) => theme.mediaQueries.md} {
     width: 10rem;
     height: 4rem;
   }
