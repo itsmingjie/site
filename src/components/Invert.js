@@ -21,15 +21,23 @@ video,
 }
 `
 
-class Invert extends Component {
+type Props = {
+  icon?: string,
+  muted?: boolean,
+  children?: element
+}
+type State = {
+  active: boolean
+}
+class Invert extends Component<Props, State> {
   state = { active: false }
 
-  onClick = e => {
-    this.setState(state => ({ active: !state.active }))
+  onClick = (e: any) => {
+    this.setState((state: State) => ({ active: !state.active }))
   }
 
   render() {
-    const { active } = this.state
+    const { active }: State = this.state
     const props = {
       name: this.props.icon || (active ? 'invert_colors_off' : 'invert_colors'),
       className: 'invert',
@@ -48,11 +56,6 @@ class Invert extends Component {
 }
 
 export default Invert
-
-Invert.propTypes = {
-  muted: PropTypes.bool,
-  children: PropTypes.element
-}
 
 Invert.defaultProps = {
   muted: false,
