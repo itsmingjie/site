@@ -1,27 +1,27 @@
 import React, { Component, Fragment } from 'react'
-import { api } from 'data.json'
+import { api } from '../../data.json'
 import { Field } from 'components/Forms'
 import { Box, Flex, Text, IconButton, Link as A } from '@hackclub/design-system'
 import yup from 'yup'
 
-class LeaderInviteForm extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { errors: undefined }
-  }
+type Props = { id: number, authToken: string, callback?: Function }
+type State = { error: string }
+
+class LeaderInviteForm extends Component<Props, State> {
+  state = { errors: undefined }
 
   render() {
-    const { id, authToken, callback } = this.props
-    const { error } = this.state
+    const { id, authToken, callback }: Props = this.props
+    const { error }: State = this.state
 
-    const handleChange = e => {
+    const handleChange: Function = (e: Function) => {
       if (e.keyCode === 13) {
         e.preventDefault()
         handleSubmit()
       }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit: function = () => {
       const leaderInvite = document.querySelector('#leader_invite')
       const schema = yup.object().shape({
         email: yup

@@ -12,9 +12,9 @@ import {
 } from '@hackclub/design-system'
 import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
-import Nav from 'components/Nav'
-import Footer from 'components/Footer'
-import Track from 'components/workshops/Track'
+import Nav from '../components/Nav'
+import Footer from '../components/Footer'
+import Track from '../components/workshops/Track'
 import {
   groupBy,
   orderBy,
@@ -30,22 +30,22 @@ A.link = A.withComponent(Link)
 const Base = Box.main.extend`
   display: grid;
   position: relative;
-  ${props => props.theme.mediaQueries[1]} {
+  ${({ theme }) => theme.mediaQueries[1]} {
     grid-template-columns: 24rem 1fr;
   }
 `
 
 const Background = Section.extend`
   justify-content: flex-start;
-  background-color: ${props => props.theme.colors.red[5]};
+  background-color: ${({ theme }) => theme.colors.red[5]};
   background-image: url('/pattern.svg'),
     linear-gradient(
       -86deg,
-      ${props => props.theme.colors.orange[5]},
-      ${props => props.theme.colors.red[5]},
-      ${props => props.theme.colors.red[6]}
+      ${({ theme }) => theme.colors.orange[5]},
+      ${({ theme }) => theme.colors.red[5]},
+      ${({ theme }) => theme.colors.red[6]}
     );
-  ${props => props.theme.mediaQueries.md} {
+  ${({ theme }) => theme.mediaQueries.md} {
     min-height: 100vh;
   }
 `
@@ -55,8 +55,8 @@ const Name = Heading.h1.extend`
   background-color: white;
   color: black;
   display: inline-block;
-  padding-left: ${props => props.theme.space[3]}px;
-  padding-right: ${props => props.theme.space[3]}px;
+  padding-left: ${({ theme }) => theme.space[3]}px;
+  padding-right: ${({ theme }) => theme.space[3]}px;
   clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
 `
@@ -67,26 +67,38 @@ const Super = Text.withComponent('mark').extend`
   padding-bottom: 0.125rem;
 `
 const SuperButton = Button.withComponent(Link).extend`
-  background-color: ${props => props.theme.colors.fuschia[6]};
+  background-color: ${({ theme }) => theme.colors.fuschia[6]};
   background-image: linear-gradient(
     -32deg,
-    ${props => props.theme.colors.fuschia[5]},
-    ${props => props.theme.colors.red[5]},
-    ${props => props.theme.colors.red[6]}
+    ${({ theme }) => theme.colors.fuschia[5]},
+    ${({ theme }) => theme.colors.red[5]},
+    ${({ theme }) => theme.colors.red[6]}
   );
 `
 
-const groupOrder = ['start', 'challenges', 'pi', 'arduino', 'experimental', 'misc', 'retired']
+const groupOrder = [
+  'start',
+  'challenges',
+  'pi',
+  'arduino',
+  'experimental',
+  'misc',
+  'retired'
+]
 
 export default ({
   data: {
     allMarkdownRemark: { edges }
   }
+}: {
+  data: {
+    allMarkdownRemark: { edges: Array<Object> }
+  }
 }) => {
   const groups = groupBy(edges, 'node.frontmatter.group')
 
   // sort groups based on groupOrder
-  const sortedGroups = toPairs(groups).sort((a, b) => {
+  const sortedGroups: Array<Object> = toPairs(groups).sort((a, b) => {
     // if a group isn't found in groupOrder, ensure it appears last in the
     // sorted list
     if (groupOrder.indexOf(a[0]) === -1) {
@@ -98,11 +110,11 @@ export default ({
     return groupOrder.indexOf(a[0]) - groupOrder.indexOf(b[0])
   })
 
-  const title = 'Hack Club Workshops'
-  const desc =
+  const title: string = 'Hack Club Workshops'
+  const desc: string =
     'Get free coding tutorials, project ideas, and programming club activities ' +
     'from Hack Club, a community of high school developers.'
-  const img = 'https://hackclub.com/workshops.png'
+  const img: string = 'https://hackclub.com/workshops.png'
 
   return (
     <Fragment>

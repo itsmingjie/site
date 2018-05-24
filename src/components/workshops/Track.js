@@ -1,13 +1,13 @@
 import React from 'react'
 import { Box, Card, Heading, Text } from '@hackclub/design-system'
 import Link from 'gatsby-link'
-import { capitalize, map } from 'lodash'
+import { capitalize } from 'lodash'
 
 const Grid = Box.withComponent('ol').extend`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
   grid-auto-rows: 1fr;
-  grid-gap: ${props => props.theme.space[3]}px;
+  grid-gap: ${({ theme }) => theme.space[3]}px;
   counter-reset: li;
   list-style: none;
   padding: 0;
@@ -32,13 +32,13 @@ const Item = Card.withComponent('li').extend`
     content: counter(li);
     counter-increment: li;
     position: absolute;
-    right: ${props => props.theme.space[3]}px;
+    right: ${({ theme }) => theme.space[3]}px;
     width: 1.25rem;
     height: 1.25rem;
     border-radius: .75rem;
-    background-color: ${props => props.theme.colors.white};
-    color: ${props => props.theme.colors.black};
-    font-size: ${props => props.theme.fontSizes[0]}px;
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.black};
+    font-size: ${({ theme }) => theme.fontSizes[0]}px;
     letter-spacing: -.02em;
     text-align: center;
     text-shadow: none;
@@ -59,6 +59,11 @@ const WorkshopItem = ({
     frontmatter: { name, description }
   },
   ...props
+}: {
+  data: {
+    fields: { slug: string, bg: string },
+    frontmatter: { name: string, description: string }
+  }
 }) => (
   <Link to={slug} {...props}>
     <Item
@@ -84,18 +89,24 @@ const descriptions = {
     'Bring projects from cyberspace to the real world with this small hardware platform.',
   retired:
     'These workshops are no longer maintained. They may contain errors and are not recommended for club use. Here be dragons.',
-  challenges:
-    'Supplemental material for Hack Club Challenges'
+  challenges: 'Supplemental material for Hack Club Challenges'
 }
 
-const Track = ({ name, data, ...props }) => (
+const Track = ({
+  name,
+  data,
+  ...props
+}: {
+  name: string,
+  data: Array<Object>
+}) => (
   <Box.section id={name} mb={4} {...props}>
     {name && <Heading.h2 color="black" f={4} children={capitalize(name)} />}
     {descriptions[name] && (
       <Text color="slate" f={2} children={descriptions[name]} />
     )}
     <Grid>
-      {map(data, (edge, ii) => (
+      {data.map((edge, ii) => (
         <WorkshopItem data={edge.node} key={`workshops-${name}-${ii}`} />
       ))}
     </Grid>

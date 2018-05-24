@@ -22,7 +22,7 @@ const features = {
 
 const plugins = [createMarkdownPlugin({ features }), createCodeEditorPlugin()]
 
-export const LS_BODY_KEY = 'new-comment'
+export const LS_BODY_KEY: string = 'new-comment'
 
 const Root = MarkdownBody.extend`
   background-color: ${({ theme }) => theme.colors.white};
@@ -49,7 +49,8 @@ const Root = MarkdownBody.extend`
   }
 `
 
-class Composer extends Component {
+type Props = { parent: Object, onUnparent: Function }
+class Composer extends Component<Props> {
   state = {
     body: EditorState.createEmpty(),
     plugins
@@ -91,7 +92,7 @@ class Composer extends Component {
     this.syncChanges()
   }
 
-  syncChanges = e => {
+  syncChanges = (e: any) => {
     const { body } = this.state
     const raw = convertToRaw(body.getCurrentContent())
     const md = draftjsToMd(raw)

@@ -90,13 +90,13 @@ const RedeemTechDomainForm = withFormik({
     secret_code: yup.string().required('required')
   }),
   enableReinitialize: true,
-  handleSubmit: (data, { setSubmitting, setStatus, resetForm }) => {
+  handleSubmit: (data: Object, { setSubmitting, setStatus, resetForm }) => {
     api
       .post('v1/tech_domain_redemptions', {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      .then(res => {
+      .then((res: any) => {
         resetForm()
         setStatus('success')
       })

@@ -1,14 +1,13 @@
 import React from 'react'
-import { Box } from '@hackclub/design-system'
-import LoadingAnimation from './LoadingAnimation'
+import { Box, Loading } from '@hackclub/design-system'
 
 const Base = Box.extend`
   position: relative;
 `
 
-const LoadingBar = props => (
+const LoadingBar = (props: any) => (
   <Base py={5} {...props}>
-    <LoadingAnimation />
+    <Loading />
   </Base>
 )
 

@@ -34,7 +34,7 @@ const Bar = Box.extend`
   min-width: 1px;
 `
 
-const Item = ({ label, value, ...props }) => (
+const Item = ({ label, value, ...props }: { label: string, value: number }) => (
   <Row mt={3}>
     <Bar
       py={3}

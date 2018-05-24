@@ -7,14 +7,23 @@ export const BreadcrumbList = Flex.withComponent('ol').extend`
   list-style: none;
   padding-left: 0;
 `
-export const Breadcrumbs = props => (
+export const Breadcrumbs = (props?: Object) => (
   <BreadcrumbList
     itemScope
     itemType="http://schema.org/BreadcrumbList"
     {...props}
   />
 )
-export const Breadcrumb = ({ type = 'Thing', position, name, ...props }) => (
+export const Breadcrumb = ({
+  type = 'Thing',
+  position,
+  name,
+  ...props
+}: {
+  type: string,
+  position: number,
+  name: string
+}) => (
   <li
     itemProp="itemListElement"
     itemScope

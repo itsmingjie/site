@@ -20,9 +20,14 @@ const FixedFlag = Flag.extend`
   z-index: 1;
 `
 
-const Login = ({ userType = 'applicant' }) => {
-  const color = userType === 'admin' ? colors.green[5] : 'white'
-  const bg = userType === 'admin' ? '#000' : 'primary'
+const Login = ({
+  userType = 'applicant'
+}: {
+  userType: 'admin' | 'applicant'
+}) => {
+  const admin: boolean = userType === 'admin'
+  const color: string = admin ? colors.green[5] : 'white'
+  const bg: string = admin ? '#000' : 'primary'
 
   return (
     <Fragment>
@@ -30,7 +35,7 @@ const Login = ({ userType = 'applicant' }) => {
       <FixedFlag />
       <Base color={color} bg={bg}>
         <Heading.h1 f={2} mb={3} caps color={color}>
-          {userType === 'admin' ? 'Admin login' : 'Start your application'}
+          {admin ? 'Admin login' : 'Start your application'}
         </Heading.h1>
         <LoginForm
           color={color}

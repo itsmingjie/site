@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text } from '@hackclub/design-system'
 
-const ErrorPage = props => (
+const ErrorPage = (props?: Object) => (
   <Text color="error" py={3} align="center" {...props}>
     🚨 Something terrible has happened 🚨
     <br />

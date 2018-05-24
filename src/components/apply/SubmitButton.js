@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import api from 'api'
-import storage from 'storage'
+import api from '../../api'
+import storage from '../../storage'
 import { LargeButton } from '@hackclub/design-system'
 
-class SubmitButton extends Component {
-  constructor(props) {
-    super(props)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+type Props = {
+  status: 'complete' | 'submitted'
+}
 
-  handleSubmit() {
-    const { status, applicationId, callback } = this.props
+class SubmitButton extends Component<Props> {
+  handleSubmit: Function = (e: any) => {
+    const { status, applicationId, callback }: Props = this.props
 
     if (status !== 'complete') {
       return null
@@ -29,8 +28,9 @@ class SubmitButton extends Component {
   }
 
   render() {
-    // this.updateState() // I'm trying to update the update button state when an application is reset
-    const { status } = this.props
+    // NOTE(@MaxWofford): I'm trying to update the update button state when an application is reset
+    // this.updateState()
+    const { status }: Props = this.props
 
     // incomplete, complete, submitted
     return (

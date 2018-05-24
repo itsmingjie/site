@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import Link from 'gatsby-link'
 import { Text, Flex, Box, Link as A } from '@hackclub/design-system'
-import { Item } from 'components/Nav'
-import Flag from 'components/Flag'
-import LogoutButton from 'components/apply/LogoutButton'
+import { Item } from '../Nav'
+import Flag from '../Flag'
+import LogoutButton from './LogoutButton'
 import { withRouter } from 'react-router-dom'
 
 const Crumb = A.withComponent(Link).extend`
@@ -11,19 +11,20 @@ const Crumb = A.withComponent(Link).extend`
   text-transform: capitalize;
 `
 
-class BreadcrumbClass extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { path: [] }
-  }
+type ClassProps = {}
+type ClassState = {
+  path: Array<string>
+}
+class BreadcrumbClass extends Component<ClassProps, ClassState> {
+  state = { path: [] }
 
   componentDidMount() {
     this.setState({ path: location.pathname.split('/').slice(1) })
   }
 
   render() {
-    const { path } = this.state
-    const runningPath = ['']
+    const { path }: ClassState = this.state
+    const runningPath: Array<string> = ['']
     return (
       <Fragment>
         {path.map((section, index) => {
@@ -38,9 +39,9 @@ class BreadcrumbClass extends Component {
               >
                 {section}
               </Crumb>
-              {isLast ? (
+              {isLast && (
                 <Text.span mx={2} color="white" regular children="›" />
-              ) : null}
+              )}
             </Fragment>
           )
         })}
@@ -54,7 +55,7 @@ const Breadcrumb = withRouter(BreadcrumbClass)
 // Prevent validateDOMNesting error
 Item.box = Item.withComponent(Box)
 
-const ApplyNav = ({ breadcrumb = true, ...props }) => (
+const ApplyNav = ({ breadcrumb = true, ...props }: { breadcrumb: boolean }) => (
   <Flex
     bg="primary"
     px={[2, 4]}
