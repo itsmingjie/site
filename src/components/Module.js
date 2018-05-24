@@ -1,8 +1,17 @@
-import React from 'react'
+import * as React from 'react'
 import { Flex, Icon, Heading, Text } from '@hackclub/design-system'
 import PropTypes from 'prop-types'
 
-const Module = ({ icon, heading, body, ...props }) => (
+const Module = ({
+  icon,
+  heading,
+  body,
+  ...props
+}: {
+  icon: string,
+  heading: string,
+  body: React.Node
+}) => (
   <Flex flexDirection={['row', 'column']} {...props}>
     <Icon
       size={48}
@@ -20,11 +29,5 @@ const Module = ({ icon, heading, body, ...props }) => (
 )
 
 Module.displayName = 'Module'
-
-Module.propTypes = {
-  icon: PropTypes.string.isRequired,
-  heading: PropTypes.string.isRequired,
-  body: PropTypes.string
-}
 
 export default Module
