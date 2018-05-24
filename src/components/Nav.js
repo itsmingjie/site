@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Box, Flex, Link as A, cx, mediaQueries } from '@hackclub/design-system'
 import Flag from 'components/Flag'
 import Link from 'gatsby-link'
@@ -29,7 +28,15 @@ export const Item = A.extend.attrs({
 
 export const GatsbyItem = Item.withComponent(Link)
 
-const Nav = ({ color = 'white', invertFlag = false, ...props }) => (
+const Nav = ({
+  color = 'white',
+  invertFlag = false,
+  ...props
+}: {
+  color?: string,
+  authenticated?: boolean,
+  invertFlag?: boolean
+}) => (
   <Base role="banner" {...props}>
     <Flag className={invertFlag && 'invert'} />
     <NavBar role="navigation" ml={-2} py={[1, 0]} color={color} align="center">
@@ -42,11 +49,5 @@ const Nav = ({ color = 'white', invertFlag = false, ...props }) => (
     </NavBar>
   </Base>
 )
-
-Nav.propTypes = {
-  color: PropTypes.string,
-  authenticated: PropTypes.bool,
-  invertFlag: PropTypes.bool
-}
 
 export default Nav
