@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Box, Text } from '@hackclub/design-system'
 
 const Base = Box.extend`
@@ -6,7 +6,18 @@ const Base = Box.extend`
   line-height: 1;
 `
 
-const Stat = ({ label, value, children, f = [6, 7], ...props }) => (
+const Stat = ({
+  label,
+  value,
+  children,
+  f = [6, 7],
+  ...props
+}: {
+  label: string,
+  value: string,
+  children: React.Node,
+  f: Array<number> | number
+}) => (
   <Base mt={1} mb={1} w={128} align="center" {...props}>
     {children}
     <Text.span f={f} m={0} bold children={value} />
