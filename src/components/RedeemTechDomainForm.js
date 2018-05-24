@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Box } from '@hackclub/design-system'
-import { Field, Submit } from 'components/Forms'
+import { Field, Submit } from './Forms'
 import { withFormik } from 'formik'
 import yup from 'yup'
 import api from 'api'
@@ -68,7 +68,7 @@ const InnerForm = ({
   </Form>
 )
 
-const statusMessage = status =>
+const statusMessage: string = (status: 'success' | 'error') =>
   status
     ? {
         success: 'Requested! Check your email 📬',

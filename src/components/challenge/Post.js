@@ -9,12 +9,13 @@ import {
   Text,
   Hide
 } from '@hackclub/design-system'
-import PropTypes from 'prop-types'
-import { Modal, Overlay, CloseButton } from 'components/Modal'
-import Comments from 'components/challenge/Comments'
-import { dt, tinyDt } from 'helpers'
+import PostRow from './PostRow'
+import type { Props as RowProps } from './PostRow'
+import { Modal, Overlay, CloseButton } from '../Modal'
+import Comments from './Comments'
+import { dt, tinyDt } from '../../helpers'
 import { sortBy } from 'lodash'
-import api from 'api'
+import api from '../../api'
 
 const Row = Flex.extend`
   align-items: center;
@@ -81,114 +82,21 @@ const CommentsModal = Modal.extend`
   min-height: 16rem;
 `
 
-const PostRow = ({
-  id,
-  name,
-  url,
-  description,
-  createdAt,
-  mine,
-  commentsCount,
-  upvotesCount,
-  upvoted = false,
-  onUpvote,
-  onComment,
-  clickCount,
-  disabled,
-  loading,
-  index
-}) => (
-  <Row
-    bg={mine ? 'yellow.0' : 'white'}
-    title={mine ? '👑 Your post!' : `${name} posted on ${dt(createdAt)}`}
-    py={[2, 3]}
-    px={[2, 0]}
-    id={`post-${id}`}
-  >
-    <Index sm xs>
-      <Text
-        align="right"
-        color={mine ? 'warning' : 'muted'}
-        bold
-        children={index}
-      />
-    </Index>
-    <Box>
-      <UpvoteButton
-        bg={upvoted ? 'primary' : 'smoke'}
-        color={upvoted ? 'white' : 'slate'}
-        aria-label={upvoted ? 'Remove your upvote' : 'Upvote this post'}
-        onClick={onUpvote}
-        disabled={loading}
-        cursor={disabled ? 'not-allowed' : loading ? 'wait' : 'pointer'}
-      >
-        <Icon size={20} name="arrow_upward" />
-        <Text.span ml={1} f={2} children={upvotesCount} />
-      </UpvoteButton>
-      <Flex
-        w={1}
-        align="center"
-        justify="center"
-        mt={1}
-        title={`${clickCount} views`}
-      >
-        <Icon size={16} name="remove_red_eye" color="gray.5" />
-        <Text.span
-          ml={1}
-          f={1}
-          color="muted"
-          style={{ lineHeight: 1 }}
-          children={clickCount}
-        />
-      </Flex>
-    </Box>
-    <Link w={1} href={url} target="_blank" color="black" px={3}>
-      <Heading.h3 f={3} m={0}>
-        {name}
-        <Text.span ml={2} f={0} mt={1} color="muted" regular>
-          {tinyDt(createdAt)}
-        </Text.span>
-      </Heading.h3>
-      <Description color="muted" f={2}>
-        {description}
-      </Description>
-    </Link>
-    <CommentButton
-      aria-label={`Open comments: ${commentsCount}`}
-      onClick={onComment}
-    >
-      <Icon
-        name="chat_bubble"
-        color={commentsCount === 0 ? 'gray.5' : 'info'}
-        size={32}
-      />
-      <Text.span bold color="white" children={commentsCount} />
-    </CommentButton>
-  </Row>
-)
-PostRow.propTypes = {
-  id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  createdAt: PropTypes.string,
-  mine: PropTypes.bool,
-  disabled: PropTypes.bool,
-  commentsCount: PropTypes.number.isRequired,
-  upvotesCount: PropTypes.number.isRequired,
-  upvoted: PropTypes.bool,
-  loading: PropTypes.bool,
-  onUpvote: PropTypes.func.isRequired,
-  onComment: PropTypes.func.isRequired
+export type Props = {}
+export type State = {
+  status: 'loading' | 'error' | 'success',
+  email: string,
+  commentsOpen: boolean,
+  comments: Array<Object>
 }
-class Post extends Component {
+class Post extends Component<Props, State> {
   state = {
     status: 'loading',
-    email: null,
+    email: '',
     commentsOpen: false,
     comments: []
   }
-  onOpen = e => {
+  onOpen = (e: any) => {
     this.setState({ commentsOpen: true })
     let { email } = this.state
     if (typeof localStorage !== 'undefined') {
@@ -244,7 +152,7 @@ class Post extends Component {
       upvoted = false,
       onUpvote,
       disabled
-    } = this.props
+    }: RowProps = this.props
     const { status, commentsOpen, comments, email } = this.state
     return (
       <Fragment>
