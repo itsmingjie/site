@@ -24,22 +24,26 @@ export default class extends Component {
       .get('v1/users/current')
       .then(user => {
         this.setState({ user })
-        return api
-          .get(`v1/new_leaders/${user.new_leader.id}/new_clubs`)
-          .then(clubs => {
-            if (clubs.length > 0) {
-              const urlBase = location.origin + location.pathname
-              const clubUrl = `${urlBase}/club?id=${clubs[0].id}`
-              const clubsUrl = `${urlBase}/clubs`
-              this.setState({
-                clubs,
-                status: 'success',
-                redirectUrl: clubs.length === 1 ? clubUrl : clubsUrl
-              })
-            } else {
-              this.setState({ status: 'noClubs' })
-            }
-          })
+        if (user.new_leader) {
+          return api
+            .get(`v1/new_leaders/${user.new_leader.id}/new_clubs`)
+            .then(clubs => {
+              if (clubs.length > 0) {
+                const urlBase = location.origin + location.pathname
+                const clubUrl = `${urlBase}/club?id=${clubs[0].id}`
+                const clubsUrl = `${urlBase}/clubs`
+                this.setState({
+                  clubs,
+                  status: 'success',
+                  redirectUrl: clubs.length === 1 ? clubUrl : clubsUrl
+                })
+              } else {
+                this.setState({ status: 'noClubs' })
+              }
+            })
+        } else {
+          this.setState({ status: 'noLeader' })
+        }
       })
       .catch(err => {
         if (err.status === 401) {
@@ -78,15 +82,18 @@ export default class extends Component {
           </Fragment>
         )
       case 'noClubs':
+      case 'noLeader':
         return (
           <Fragment>
             <Nav breadcrumb={false} />
-              <Container color="black" p={3} maxWidth={36} align="center">
-                <Heading.h2 f={[4, 5]} mt={3} mb={3}>
-                  No Clubs Found
-                </Heading.h2>
-                <Text>We couldn’t find any clubs associated with your email.</Text>
-              </Container>
+            <Container color="black" p={3} maxWidth={36} align="center">
+              <Heading.h2 f={[4, 5]} mt={3} mb={3}>
+                No Clubs Found
+              </Heading.h2>
+              <Text>
+                We couldn’t find any clubs associated with your email.
+              </Text>
+            </Container>
           </Fragment>
         )
       case 'needsToAuth':
