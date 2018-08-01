@@ -138,20 +138,26 @@ export default () => (
         <Heading.h2 f={[5, 6]} mb={3}>
           So what does this actually look like?
         </Heading.h2>
-        <Container maxWidth={48} mx={0}>
-          <Text f={[3, 4]}>
-            Hack Clubs meet weekly, typically for 1.5 hours. Meetings
-            resemble mini-hackathons, where members learn to code through
-            building projects like{' '}
-            <A href="https://sohuang.github.io/" target="_blank">websites</A>
-            {' '}and{' '}
-            <A href="https://messy-wool.surge.sh/catch.html" target="_blank">games</A>.
-          </Text>
-          <Text f={[3, 4]} my={3}>
-            Clubs are led by teams of 2-3 students (sorry, no parents or
-            teachers). We ask that at least 1 leader be technically adept
-            enough to write and customize <A href="/workshops" target="_blank">workshops</A>.
-          </Text>
+        <Container mx={0}>
+          <Row>
+            <BackgroundImage src="/lah_2.jpg" />
+            <Box>
+              <Text f={[3, 4]}>
+                Hack Clubs meet weekly, typically for 1.5 hours. Meetings
+                resemble mini-hackathons, where members learn to code through
+                building projects like{' '}
+                <A href="https://sohuang.github.io/" target="_blank">websites</A>
+                {' '}and{' '}
+                <A href="https://messy-wool.surge.sh/catch.html" target="_blank">games</A>.
+              </Text>
+              <Text f={[3, 4]} my={3}>
+                Clubs are led by teams of 2-3 students (sorry, no parents or
+                teachers). We ask that at least 1 leader be technically adept
+                enough to write and customize <A href="/workshops" target="_blank">workshops</A>.
+              </Text>
+            </Box>
+          </Row>
+
           <Heading.h3 f={[4, 5]} mt={4}>
             What happens outside of club meetings?
           </Heading.h3>
