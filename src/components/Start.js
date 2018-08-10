@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import {
   Section,
   Box,
@@ -6,28 +7,21 @@ import {
   Text,
   LargeButton
 } from '@hackclub/design-system'
+import Sheet from 'components/Sheet'
 import Link from 'gatsby-link'
 
-const tilt = n =>
-  `clip-path: polygon(0% ${100 - n}%, 100% 0, 100% ${n}%, 0 100%)`
-
-const Base = Section.extend`
+const Base = styled(Sheet)`
   background-color: ${({ theme }) => theme.colors.red[5]};
   background-image: linear-gradient(
     -48deg,
-    ${({ theme }) => theme.colors.orange[4]} 0%,
-    ${({ theme }) => theme.colors.red[5]} 50%,
-    ${({ theme }) => theme.colors.red[6]} 100%
+    ${({ theme }) => theme.colors.orange[4]},
+    ${({ theme }) => theme.colors.red[5]},
+    ${({ theme }) => theme.colors.red[6]}
   );
   display: grid;
+  align-items: center;
   ${({ theme }) => theme.mediaQueries.md} {
     grid-template-columns: 3fr 2fr;
-  }
-  padding: 4rem 0 !important;
-  ${tilt(90)};
-  ${({ theme }) => theme.mediaQueries.lg} {
-    padding-top: 5rem 0 !important;
-    ${tilt(85)};
   }
   h3 {
     font-weight: normal;
@@ -38,10 +32,10 @@ const Base = Section.extend`
 
 LargeButton.link = LargeButton.withComponent(Link)
 
-const Start = ({ mt = '-4rem', buttonProps = {}, ...props }) => (
-  <Base mt={mt} {...props}>
+const Start = ({ buttonProps = {}, ...props }) => (
+  <Base my={4} {...props}>
     <Box p={[2, 3]} align={['center', null, 'right']}>
-      <Heading.h2 f={[5, 6]} m={0}>
+      <Heading.h2 color="white" f={[5, 6]} m={0}>
         Begin Your Application.
       </Heading.h2>
       <Text color="red.0" f={[3, 4]} my={2}>
@@ -56,10 +50,10 @@ const Start = ({ mt = '-4rem', buttonProps = {}, ...props }) => (
         to="/start"
         inverted
         children="Get started »"
+        f={[3, 4]}
         {...buttonProps}
       />
     </Box>
-    <style children="footer{margin-top:-5rem;padding-top:8rem !important}" />
   </Base>
 )
 
