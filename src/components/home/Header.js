@@ -29,7 +29,7 @@ const Root = Flex.withComponent('header').extend`
   p,
   h1,
   h2 {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.375);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   }
   p,
   h2 {
@@ -77,10 +77,10 @@ Notification.defaultProps = {
 }
 
 const HeaderStats = styled.ul`
-margin-top: 0;
-margin-left: -15px;
-padding: 0;
-display: inline;
+  margin-top: 0;
+  margin-left: -15px;
+  padding: 0;
+  display: inline;
 `
 
 const HeaderStat = Text.withComponent('li').extend.attrs({ f: [3, 4] })`
@@ -127,8 +127,8 @@ export default () => (
         <HeaderStat>{stats.country_count} countries</HeaderStat>
       </HeaderStats>
       <Text f={[3, 4]} mx="auto">
-        Hack Club is a nonprofit network of computer science clubs where
-        members learn to code through tinkering and building projects.
+        Hack Club is a nonprofit network of computer science clubs where members
+        learn to code through tinkering and building projects.
       </Text>
       <Flex
         justify="center"
