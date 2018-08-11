@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import styled from 'styled-components'
 import {
   Box,
   Flex,
@@ -17,7 +18,7 @@ import Module from 'components/Module'
 import Sheet from 'components/Sheet'
 import BankStats from 'components/bank/BankStats'
 
-const Base = Box.extend`
+const Base = styled(Box)`
   background-color: #111;
   width: 100%;
   max-width: 100vw;
@@ -27,10 +28,7 @@ const Base = Box.extend`
   background-size: 2rem 2rem;
 `
 
-const CTA = Button.extend`
-  text-transform: uppercase;
-`
-CTA.defaultProps = {
+const CTA = styled(Button).attrs({
   target: '_blank',
   scale: true,
   chevronRight: true,
@@ -39,9 +37,11 @@ CTA.defaultProps = {
   py: 3,
   px: 4,
   f: 2
-}
+})`
+  text-transform: uppercase;
+`
 
-const Modules = Container.extend`
+const Modules = styled(Container)`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   grid-gap: ${({ theme }) => theme.space[3]}px;
@@ -65,45 +65,50 @@ Modules.defaultProps = {
   align: ['left', 'center']
 }
 
-const Internal = A.withComponent(Link).extend.attrs({ color: 'inherit' })``
+const Internal = styled(A.withComponent(Link)).attrs({ color: 'inherit' })``
 
-const Alt = Container.withComponent(Flex).extend.attrs({
+const Alt = styled(Container.withComponent(Flex)).attrs({
   maxWidth: 64,
   px: 3,
   flexDirection: 'column'
-})`text-align: left;`
-const AltBox = Box.extend.attrs({ my: 4 })`
+})`
+  text-align: left;
+`
+const AltBox = styled(Box).attrs({ my: 4 })`
   max-width: 36rem;
 `
-const AltLeft = AltBox.extend``
-const AltRight = AltBox.extend.attrs({ ml: 'auto' })``
+const AltLeft = styled(AltBox)``
+const AltRight = styled(AltBox).attrs({ ml: 'auto' })``
 
-const Megaline = Heading.h1.extend.attrs({
+const Megaline = styled(Heading.h1).attrs({
   f: [6, 7],
   color: 'white'
-})`line-height: 1.125;`
-const Headline = Heading.h2.extend.attrs({
+})`
+  line-height: 1.125;
+`
+const Headline = styled(Heading.h2).attrs({
   f: [5, 6],
   mb: 3,
   color: 'snow',
   bold: true
-})`line-height: 1.125;`
+})`
+  line-height: 1.125;
+`
 const subhline = { f: [3, 4], style: { lineHeight: '1.375' } }
 
 const Lead = Container.withComponent(Text)
 Lead.defaultProps = { f: 3, mx: 'auto' }
 
-const Banner = Container.extend``
-Banner.defaultProps = {
+const Banner = styled(Container).attrs({
   maxWidth: 48,
   mt: 5,
   mb: [3, 4],
   mx: 'auto',
   px: 3,
   align: ['left', 'center']
-}
+})
 
-const Join = Sheet.extend`
+const Join = styled(Sheet)`
   display: grid;
   grid-gap: ${({ theme }) => theme.space[3]}px;
   align-items: flex-start;
@@ -112,7 +117,7 @@ const Join = Sheet.extend`
   }
 `
 
-const Breakdown = Box.extend`
+const Breakdown = styled(Box)`
   div {
     width: 100%;
     display: block;
