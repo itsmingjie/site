@@ -14,47 +14,7 @@ import Link from 'gatsby-link'
 import Helmet from 'react-helmet'
 import Nav from 'components/Nav'
 import Module from 'components/Module'
-import api from 'api'
-import { timeSince } from 'helpers'
-
-class BankStats extends Component {
-  state = {}
-
-  loadStats() {
-    api.get('https://bank.hackclub.com/transactions/stats').then(stats => {
-      const volumeString = (stats.total_volume / 100).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    })
-      this.setState({ transactionsTotalVolume: volumeString })
-    })
-  }
-  loadStats = this.loadStats.bind(this)
-
-  componentDidMount() {
-    this.loadStats()
-    const intervalId = setInterval(this.loadStats, 10000)
-    this.setState({ intervalId })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.state.intervalId)
-  }
-
-  render() {
-    const { transactionsTotalVolume } = this.state
-    const launchDate = '2018-06-28'
-    if (transactionsTotalVolume) {
-      return (
-        <Text maxWidth={32} f={3} my={4}>
-          {transactionsTotalVolume} transacted in the past {timeSince(launchDate, true, new Date(), true)} & counting.
-        </Text>
-      )
-    } else {
-      return null
-    }
-  }
-}
+import BankStats from 'components/bank/BankStats'
 
 const Base = Box.extend`
   background-color: #111;
