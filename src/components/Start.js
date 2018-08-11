@@ -1,12 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {
-  Section,
-  Box,
-  Heading,
-  Text,
-  LargeButton
-} from '@hackclub/design-system'
+import { Box, Heading, Text, LargeButton } from '@hackclub/design-system'
 import Sheet from 'components/Sheet'
 import Link from 'gatsby-link'
 
@@ -49,6 +43,7 @@ const Start = ({ buttonProps = {}, ...props }) => (
       <LargeButton.link
         to="/start"
         inverted
+        scale
         children="Get started »"
         f={[3, 4]}
         {...buttonProps}
