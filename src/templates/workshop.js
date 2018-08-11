@@ -324,7 +324,7 @@ export default ({ data }) => {
               <Heading.h2 f={4} color="pink.5" mb={3}>
                 Questions?
               </Heading.h2>
-              <DiscussOnSlack bg="pink.5" f={2} />
+              <DiscussOnSlack f={2} />
             </Sheet>
             <Sheet>
               <Heading.h2 f={4} color="slate" mb={3}>
