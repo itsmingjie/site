@@ -44,7 +44,8 @@ const Start = ({ buttonProps = {}, ...props }) => (
         to="/start"
         inverted
         scale
-        children="Get started »"
+        chevronRight
+        children="Get started"
         f={[3, 4]}
         {...buttonProps}
       />
